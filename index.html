@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --brand: #821131; /* Burgundy Nona */
+    --paper: #f0f0f0;
+    --dark: #111111;
+    --white: #ffffff;
+    
+    --font-head: 'Anton', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+  }
+
+  body {
+    margin: 0; padding: 0;
+    background-color: #333;
+    font-family: var(--font-body);
+    color: var(--dark);
+  }
+
+  .container {
+    max-width: 480px; margin: 0 auto;
+    background: var(--white);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    padding-bottom: 60px;
+    border: 1px solid #ccc;
+  }
+
+  /* --- HEADER: INDUSTRIAL TYPOGRAPHY --- */
+  .log-header {
+    padding: 40px 25px 20px;
+    border-bottom: 4px solid var(--brand);
+  }
+
+  .log-meta {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; color: #888; display: flex; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .log-title {
+    font-family: var(--font-head); font-size: 48px; line-height: 0.9;
+    color: var(--dark); text-transform: uppercase; margin: 0;
+  }
+  
+  .log-title span {
+    color: var(--brand);
+  }
+
+  .status-tag {
+    display: inline-block; background: var(--dark); color: #fff;
+    padding: 4px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+    transform: rotate(-2deg); margin-top: 10px;
+  }
+
+  /* --- INFO MANIFESTO (PENJELASAN PENTING) --- */
+  .manifesto-box {
+    background: var(--brand); color: var(--white);
+    padding: 30px 25px; margin: 20px 0;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
+  }
+
+  .manifesto-title {
+    font-family: var(--font-head); font-size: 24px; margin-bottom: 15px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  .manifesto-text {
+    font-size: 13px; line-height: 1.7; opacity: 0.95;
+    text-align: justify;
+  }
+
+  /* --- ROTATING BADGE (LIFETIME) --- */
+  .badge-container {
+    position: absolute; top: -30px; right: 20px;
+    width: 80px; height: 80px;
+    z-index: 10;
+  }
+  
+  .badge-img {
+    width: 100%; height: 100%;
+    animation: spin 10s linear infinite;
+  }
+  
+  /* Kita buat badge pakai CSS aja biar ringan */
+  .css-badge {
+    width: 80px; height: 80px; background: #fff; border-radius: 50%;
+    border: 2px dashed var(--brand); display: flex; align-items: center; justify-content: center;
+    text-align: center; font-size: 9px; font-weight: 800; text-transform: uppercase;
+    color: var(--brand); box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+
+  /* --- SPECS GRID --- */
+  .specs-row {
+    display: flex; gap: 10px; padding: 0 25px; margin-bottom: 30px;
+  }
+  
+  .spec-card {
+    flex: 1; background: #f4f4f4; padding: 15px 10px;
+    text-align: center; border: 1px solid #ddd;
+  }
+  
+  .spec-val { font-family: var(--font-head); font-size: 20px; color: var(--brand); }
+  .spec-lbl { font-size: 9px; text-transform: uppercase; font-weight: 700; color: #555; margin-top: 5px; }
+
+  /* --- FILE LIST (FILM STRIP STYLE) --- */
+  .files-section {
+    padding: 0 25px;
+  }
+  
+  .section-label {
+    font-family: var(--font-serif); font-style: italic; font-size: 18px;
+    margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;
+  }
+
+  .file-item {
+    display: flex; align-items: center; margin-bottom: 15px;
+    background: #fff; padding: 10px; border: 1px solid #000;
+    transition: transform 0.2s;
+  }
+  
+  .file-item:hover { transform: translateX(5px); background: #fafafa; }
+
+  .file-icon {
+    width: 40px; height: 40px; background: #000; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; margin-right: 15px; flex-shrink: 0;
+  }
+  
+  .file-content h4 { margin: 0; font-size: 13px; font-weight: 700; text-transform: uppercase; }
+  .file-content p { margin: 3px 0 0; font-size: 10px; color: #666; font-family: monospace; }
+  
+  .file-dur {
+    margin-left: auto; font-size: 10px; font-weight: 700; color: var(--brand);
+    border: 1px solid var(--brand); padding: 2px 5px;
+  }
+
+  /* --- VISUAL LOADER --- */
+  .loader-box {
+    margin: 30px 25px; text-align: center;
+    padding: 20px; border: 2px dashed #ccc;
+    background: #fafafa;
+  }
+  
+  .loader-bar {
+    width: 100%; height: 6px; background: #ddd; margin: 10px 0;
+    position: relative; overflow: hidden;
+  }
+  .loader-progress {
+    position: absolute; top: 0; left: 0; height: 100%; width: 60%;
+    background: var(--brand);
+    animation: loading 2s infinite ease-in-out;
+  }
+  @keyframes loading { 0% { width: 40%; } 50% { width: 70%; } 100% { width: 40%; } }
+
+  /* --- FOOTER --- */
+  .footer {
+    text-align: center; margin-top: 40px; font-size: 11px; color: #aaa;
+    font-family: monospace;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="log-header">
+    <div class="log-meta">
+      <span>Project No. 005</span>
+      <span>Status: Editing</span>
+    </div>
+    <h1 class="log-title">
+      MC Basic<br><span>Fundamentals</span>
+    </h1>
+    <span class="status-tag">Coming Soon • Pre-Order Phase</span>
+  </header>
+
+  <div class="manifesto-box">
+    <div class="badge-container">
+      <div class="badge-img css-badge">
+        Lifetime<br>Access<br>★
+      </div>
+    </div>
+
+    <div class="manifesto-title">What is this?</div>
+    <p class="manifesto-text">
+      Tenang, ini bukan webinar yang harus ditungguin jam tayangnya. Ini adalah <strong>Video E-Learning (On-Demand)</strong>.
+      <br><br>
+      Artinya? Sekali Nona beli, videonya jadi milik Nona <strong>selamanya</strong>. Bisa ditonton ulang kapan aja, di mana aja, pas lagi senggang. Materinya aku desain khusus biar padat (3-5 menit per video) tapi <em>daging</em> semua!
+    </p>
+  </div>
+
+  <div class="specs-row">
+    <div class="spec-card">
+      <div class="spec-val">05</div>
+      <div class="spec-lbl">Video Files</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-val">HD</div>
+      <div class="spec-lbl">Quality</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-val">∞</div>
+      <div class="spec-lbl">Forever Access</div>
+    </div>
+  </div>
+
+  <div class="files-section">
+    <div class="section-label">Production Files</div>
+
+    <div class="file-item">
+      <div class="file-icon">MOV</div>
+      <div class="file-content">
+        <h4>01. Opening Technique</h4>
+        <p>Status: Final Cut Proccessing...</p>
+      </div>
+      <div class="file-dur">~04:00</div>
+    </div>
+
+    <div class="file-item">
+      <div class="file-icon">MOV</div>
+      <div class="file-content">
+        <h4>02. Vocal Warm-up</h4>
+        <p>Status: Color Grading...</p>
+      </div>
+      <div class="file-dur">~03:30</div>
+    </div>
+
+    <div class="file-item">
+      <div class="file-icon">MOV</div>
+      <div class="file-content">
+        <h4>03. Script Reading</h4>
+        <p>Status: Audio Mixing...</p>
+      </div>
+      <div class="file-dur">~05:00</div>
+    </div>
+
+    <div class="file-item">
+      <div class="file-icon">MOV</div>
+      <div class="file-content">
+        <h4>04. Body Language</h4>
+        <p>Status: Exporting...</p>
+      </div>
+      <div class="file-dur">~03:45</div>
+    </div>
+
+    <div class="file-item">
+      <div class="file-icon">MOV</div>
+      <div class="file-content">
+        <h4>05. Closing Mastery</h4>
+        <p>Status: Rendering...</p>
+      </div>
+      <div class="file-dur">~04:15</div>
+    </div>
+
+  </div>
+
+  <div class="loader-box">
+    <div style="font-size:12px; font-weight:700; margin-bottom:5px; text-transform:uppercase;">Production Progress</div>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+    <div style="font-size:10px; color:#888;">Nona, tunggu sebentar lagi ya! ❤️</div>
+  </div>
+
+  <div class="footer">
+    The Editor's Room • 2024
+  </div>
+
+</div>
+
+</body>
+</html>
